@@ -1,0 +1,33 @@
+<p>
+ Add a new phone
+</p>
+<div>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm"  novalidate>
+        <div class="form-group"><ul class="phones">
+          <li>
+            <label for="name">Name: </label> 
+            <input type="text" class="form-control" id="name" 
+              [(ngModel)]="phone.name" #name="ngModel" name="name">
+          </li>
+
+          <li>
+            <label for="description">Description: </label>   
+            <input type="text" class="form-control" id="description" name="description"
+               [(ngModel)]="phone.description" #description="ngModel">
+          </li>
+          
+          <li>
+            <label for="image">Image: </label>
+            <input type="text" class="form-control" id="image" name="image"
+               [(ngModel)]="phone.image" #description="ngModel">
+          </li>     
+          
+          <li>
+            <label for="price">Price: </label>
+            <input type="text" class="form-control" id="price" name="price"
+               [(ngModel)]="phone.price" #price="ngModel">
+          </li>
+        </ul></div>
+        <button type="button" class="btn btn-default" (click)="newPhone()">New Phone</button>
+    </form>
+</div>

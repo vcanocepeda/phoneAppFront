@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPhone } from './phone.model';
-import { PHONES } from './mock-phones';
 import { PhoneService } from './phone.service';
-import { IPhoneList } from 'src/app/phones/phonelist.model';
+import { IPhoneList } from './phonelist.model';
 
 @Component({
   selector: 'app-phones',
@@ -12,6 +11,7 @@ import { IPhoneList } from 'src/app/phones/phonelist.model';
 export class PhonesComponent implements OnInit {
   phones: IPhone[];
   selectedPhone: IPhone;
+  idphone: IPhone;
 
   constructor(private phoneService: PhoneService) {
 
@@ -25,10 +25,16 @@ export class PhonesComponent implements OnInit {
     this.selectedPhone = phone;
   }
 
+  onKey(event: any) {
+    this.phoneService.getPhone$('1').subscribe(phone => this.idphone = phone);
+  }
+
   getPhones(): void {
     this.phoneService.getPhones$().subscribe(data => {
       this.phones = data.phoneList;
-    } );
+    },
+    err => {
+      console.log(err);
+    });
   }
-
 }

@@ -5,3 +5,7 @@ export interface IPhone {
     image: string;
     price: number;
 }
+
+export interface IPhoneRequest {
+    phone: IPhone;
+}
