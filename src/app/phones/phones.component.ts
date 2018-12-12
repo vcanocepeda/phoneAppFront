@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IPhone } from './phone.model';
 import { PhoneService } from './phone.service';
 import { IPhoneList } from './phonelist.model';
@@ -13,12 +14,13 @@ export class PhonesComponent implements OnInit {
   selectedPhone: IPhone;
   idphone: IPhone;
 
-  constructor(private phoneService: PhoneService) {
+  constructor(private phoneService: PhoneService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.getPhones();
+    this.phones = this.route.snapshot.data.message.phoneList;
+    console.log(' print all the phones' + this.phones[0]);
   }
 
   onSelect(phone: IPhone): void {
