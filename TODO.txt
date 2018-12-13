@@ -1,0 +1,32 @@
+componentless route.
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: '',
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: 'todos',
+        component: TodosComponent
+      },
+      {
+        path: 'blog',
+        component: BlogComponent
+      }
+    ]
+  }
+]
+
+
+{
+     path: '',
+     runGuardsAndResolvers: 'always',
+     canActivate: [AuthGuard]
+     children: [
+        ...
+     ]
+   }

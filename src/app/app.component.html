@@ -1,14 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <nav>
-      <a routerLink="/phones">Get Phones</a>
-  </nav>
-  <nav>
-      <a routerLink="/addphone">Add a new Phone</a>
-  </nav>
-</div>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <!--  <span>HOME</span> -->
+       <span><a href="/">HOME</a></span>
+       <span class="spacer"></span>
+       <a  mat-button  routerLink="/login">Login</a>
+       <a  mat-button  routerLink="/phones">Get phones</a>
+       <a  mat-button  routerLink="/addphone">Add phone</a>
+    </mat-toolbar-row>
+ </mat-toolbar>
+ <router-outlet></router-outlet>
 

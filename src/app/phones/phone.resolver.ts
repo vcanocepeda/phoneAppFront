@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs';
 import { PhoneService } from './phone.service';
 import { IPhoneList } from './phonelist.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class PhoneResolver implements Resolve<Observable<IPhoneList>> {
     constructor(private phoneService: PhoneService) {}
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IPhone } from '../phone.model';
 import { PhoneService } from '../phone.service';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-phone',
@@ -13,7 +14,7 @@ export class AddPhoneComponent implements OnInit {
   phone: IPhone;
   submitted: boolean;
 
-  constructor(private phoneService: PhoneService) { }
+  constructor(private phoneService: PhoneService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.phone = <IPhone>{};

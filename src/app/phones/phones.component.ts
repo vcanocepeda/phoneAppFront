@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPhone } from './phone.model';
 import { PhoneService } from './phone.service';
-import { IPhoneList } from './phonelist.model';
 
 @Component({
   selector: 'app-phones',
