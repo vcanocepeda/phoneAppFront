@@ -7,7 +7,7 @@ import { PhoneResolver } from './phones/phone.resolver';
 import { AuthGuard } from './login/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'phones', component: PhonesComponent, resolve: { message: PhoneResolver}, canActivate: [AuthGuard] },
   { path: 'addphone', component: AddPhoneComponent, canActivate: [AuthGuard] }

@@ -1,12 +1,21 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <!--  <span>HOME</span> -->
-       <span><a href="/">HOME</a></span>
-       <span class="spacer"></span>
-       <a  mat-button  routerLink="/login">Login</a>
-       <a  mat-button  routerLink="/phones">Get phones</a>
-       <a  mat-button  routerLink="/addphone">Add phone</a>
+    <mat-toolbar-row>      
+       <a mat-button routerLink="/login" [routerLinkActive]="['router_active', 'router_inactive']">Login</a>
+       <span class="example-fill-remaining-space"></span>
+       <a mat-raised-button *ngIf="authenticated | async" (click)="logout()">Logout</a>
+       <button mat-icon-button *ngIf="authenticated | async" [matMenuTriggerFor]="menu" >
+         <mat-icon>list</mat-icon>
+       </button>
+       <mat-menu #menu="matMenu">
+         <button mat-menu-item routerLink="/phones">
+           <mat-icon>adb</mat-icon>
+           <span>Phones</span>
+         </button>
+         <button mat-menu-item routerLink="/addphone"> 
+           <mat-icon>add_box</mat-icon>
+           <span>Add Phone</span>
+         </button>
+       </mat-menu>
     </mat-toolbar-row>
  </mat-toolbar>
  <router-outlet></router-outlet>

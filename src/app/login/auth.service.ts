@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
@@ -11,23 +11,30 @@ export class AuthService {
     {id: 2, username: 'user2', password: 'password2'},
     {id: 3, username: 'user3', password: 'password3'},
     {id: 4, username: 'user4', password: 'password4'},
-];
+  ];
 
-  constructor() { }
+  private authenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  login(username: string, password: string): void {
+  constructor() {}
+
+  login(username: string, password: string): boolean {
     const user = this.users.filter((element: User) => element.username === username && element.password === password);
     if (user.length !== 0) {
       sessionStorage.setItem('currentUser', JSON.stringify(user));
+      this.authenticated.next(true);
+      return true;
+    } else {
+      return false;
     }
   }
 
-  isLoggedIn(): Observable<boolean> {
-    const user = sessionStorage.getItem('currentUser');
-    return of(user !== null);
+  isLoggedIn$(): Observable<boolean> {
+    //  if (sessionStorage.getItem('currentUser') != null) { this.authenticated.next(true); }
+    return this.authenticated.asObservable();
   }
 
   logout(): void {
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('currentUser');
+    this.authenticated.next(false);
   }
 }
