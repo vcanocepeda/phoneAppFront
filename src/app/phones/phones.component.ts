@@ -19,7 +19,6 @@ export class PhonesComponent implements OnInit {
 
   ngOnInit() {
     this.phones = this.route.snapshot.data.message.phoneList;
-    console.log(' print all the phones' + this.phones[0]);
   }
 
   onSelect(phone: IPhone): void {

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  phonesListUrl: 'http://localhost:8080/phone'
+  phonesListUrl: 'http://localhost:8080/phone',
+  loginUrl: 'http://localhost:8080/login'
 };
 
 /*

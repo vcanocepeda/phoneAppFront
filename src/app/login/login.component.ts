@@ -19,9 +19,18 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log('Login with Username: ' + this.user.username + ' Password: ' + this.user.password);
-    if (this.authService.login(this.user.username, this.user.password)) {
-      this.router.navigate(['phones']);
-    }
+    this.authService.loginApp(this.user.username, this.user.password).subscribe(
+      httpResponse => {
+        console.log('Executing step 2 ' + httpResponse.headers.get('Authorization'));
+        if  (httpResponse.status === 200) {
+          this.router.navigate(['phones']);
+        }  else {
+          console.log('El usuario no ha sido autorizado ');
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
-
 }

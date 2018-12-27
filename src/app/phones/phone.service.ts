@@ -22,9 +22,7 @@ export class PhoneService {
 
   getPhones$(): Observable<IPhoneList> {
     const url = environment.phonesListUrl;
-    return this.http.get<IPhoneList>(url, httpOptions).pipe(
-      tap(_ => console.log('fetched phones'))
-    );
+    return this.http.get<IPhoneList>(url, httpOptions);
   }
 
   getPhone$(id: String): Observable<IPhone> {

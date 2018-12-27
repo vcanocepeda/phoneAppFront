@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { PhonesComponent } from './phones/phones.component';
 import { AddPhoneComponent } from './phones/add-phone/add-phone.component';
 import { LoginComponent } from './login/login.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './login/auth.interceptor';
 
 
 @NgModule({
@@ -26,7 +28,11 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [ ],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

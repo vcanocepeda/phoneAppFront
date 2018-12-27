@@ -1,5 +1,8 @@
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { User } from './user.model';
 
 @Injectable({
@@ -15,12 +18,12 @@ export class AuthService {
 
   private authenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   login(username: string, password: string): boolean {
     const user = this.users.filter((element: User) => element.username === username && element.password === password);
     if (user.length !== 0) {
-      sessionStorage.setItem('currentUser', JSON.stringify(user));
+      localStorage.setItem('currentUser', JSON.stringify(user));
       this.authenticated.next(true);
       return true;
     } else {
@@ -28,13 +31,41 @@ export class AuthService {
     }
   }
 
-  isLoggedIn$(): Observable<boolean> {
-    //  if (sessionStorage.getItem('currentUser') != null) { this.authenticated.next(true); }
+  public isLoggedIn$(): Observable<boolean> {
     return this.authenticated.asObservable();
   }
 
-  logout(): void {
-    sessionStorage.removeItem('currentUser');
+  public isLoggedIn(): boolean {
+     return (localStorage.getItem('currentUser') != null);
+  }
+
+  public getAuthenticationToken(): string {
+    return (localStorage.getItem('authorizationToken'));
+  }
+
+  public logout(): void {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('authorizationToken');
     this.authenticated.next(false);
+  }
+
+  public loginApp(username: string, password: string): Observable<any> {
+    const url = environment.loginUrl;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' }),
+      observe: 'response'
+    };
+
+    return this.http.post<any>(url, {username, password}, { observe: 'response' }).pipe(
+      map((httpResponse: HttpResponse<any>) => {
+        console.log('Executing step 1 ');
+        if (httpResponse.status === 200) {
+          localStorage.setItem('currentUser', username);
+          localStorage.setItem('authorizationToken', httpResponse.headers.get('Authorization'));
+          this.authenticated.next(true);
+        }
+      return httpResponse;
+    })
+    );
   }
 }
