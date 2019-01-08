@@ -7,20 +7,18 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     let authenticated = false;
-    this.authService.isLoggedIn$().subscribe(
+    this.auth.isLoggedIn$().subscribe(
       x => authenticated = x,
       err => console.error('We got an error: ' + err)
     );
 
-    if (authenticated) {
-      return true;
-    } else {
+    if (!authenticated) {
       this.router.navigate(['login']);
-      return false;
     }
+    return authenticated;
   }
 }
