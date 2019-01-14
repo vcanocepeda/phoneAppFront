@@ -1,4 +1,5 @@
 import { Component, OnInit, isDevMode } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './login/auth.service';
@@ -12,9 +13,11 @@ export class AppComponent implements OnInit {
   title = 'Phone App';
 
   authenticated: Observable<boolean>;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    console.log(this.route.snapshot.queryParamMap);
+    console.log(this.route.snapshot.url);
     if (isDevMode()) {
       console.log('👋 Development!');
     } else {

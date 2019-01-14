@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>      
-       <a mat-button routerLink="/login" [routerLinkActive]="['router_active', 'router_inactive']">Login</a>
+       <a mat-button *ngIf="!authenticated | async" routerLink="/login" [routerLinkActive]="['router_active', 'router_inactive']">Login</a>
+       <a mat-button *ngIf="authenticated | async" routerLink="/phones" [routerLinkActive]="['router_active', 'router_inactive']">Phones</a>
+       <a mat-button *ngIf="authenticated | async" routerLink="/addphone" [routerLinkActive]="['router_active', 'router_inactive']">Add Phone</a>
        <span class="example-fill-remaining-space"></span>
        <a mat-raised-button *ngIf="authenticated | async" (click)="logout()">Logout</a>
        <button mat-icon-button *ngIf="authenticated | async" [matMenuTriggerFor]="menu" >
