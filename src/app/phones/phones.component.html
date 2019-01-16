@@ -18,14 +18,19 @@
   </div>
 </div>
 
+<br><br>
+
 <div>
-    <label>id:
-      <input (keyup)="onKey($event)" placeholder="id">
-    </label>
-  </div>
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Just numbers">
+    <mat-label>Id phone:</mat-label>
+      <input matInput #idPhoneInput maxlength="2" placeholder="idPhone" value="1" (keyup)="onKey($event)">
+      <mat-hint align="end">{{idPhoneInput.value?.length || 0}}/2</mat-hint>
+    </mat-form-field>
+</div>
+
 <div *ngIf="idphone">
-  <span> id: </span>{{idphone.id}}
-  <span>  name: </span>{{idphone.name}}
-  <span>  price: </span>{{idphone.price}}
+  <mat-card style="width: 20%"><span> id: </span>{{idphone.id}}</mat-card>
+  <mat-card style="width: 20%"><span> name: </span>{{idphone.name}}</mat-card>
+  <mat-card style="width: 20%"><span> price: </span>{{idphone.price}}</mat-card>
 </div>
   

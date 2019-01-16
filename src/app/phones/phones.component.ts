@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPhone } from './phone.model';
 import { PhoneService } from './phone.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-phones',
@@ -26,7 +27,28 @@ export class PhonesComponent implements OnInit {
   }
 
   onKey(event: any) {
-    this.phoneService.getPhone$('1').subscribe(phone => this.idphone = phone);
+    const eventValue = event.target.value;
+
+    // if it's not a number we dont trigger the request
+    if (!isNaN(Number(eventValue))) {
+    this.phoneService.getPhone$(eventValue).subscribe( (eventService: HttpEvent<IPhone>) => {
+      switch (eventService.type) {
+        case HttpEventType.Sent:
+          console.log('Request sent!');
+          break;
+        case HttpEventType.ResponseHeader:
+          console.log('Response header received!');
+          break;
+        case HttpEventType.DownloadProgress:
+          const kbLoaded = Math.round(eventService.loaded / 1024);
+          console.log(`Download in progress! ${kbLoaded}Kb loaded`);
+          break;
+        case HttpEventType.Response:
+          console.log('😺 Done!', eventService.body);
+          this.idphone = eventService.body as IPhone;
+      }
+      });
+    }
   }
 
   getPhones(): void {
