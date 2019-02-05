@@ -11,6 +11,7 @@ import { AddPhoneComponent } from './phones/add-phone/add-phone.component';
 import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './login/auth.interceptor';
+import { RegisterComponent } from './login/register/register.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AuthInterceptor } from './login/auth.interceptor';
     AppComponent,
     PhonesComponent,
     AddPhoneComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

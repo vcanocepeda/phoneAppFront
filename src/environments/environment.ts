@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   phonesListUrl: 'http://localhost:8080/phone',
-  loginUrl: 'http://localhost:8080/login'
+  loginUrl: 'http://localhost:8080/login',
+  signupUrl: 'http://localhost:8080/sign-up'
 };
 
 /*
